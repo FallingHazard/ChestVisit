@@ -1,0 +1,8 @@
+main: net.sasha.bukkit.ChestFinderPlugin
+name: ChestFinder
+version: 0.2
+author: Mike
+commands:
+  findchests:
+  nextchest:
+  previouschest:
