@@ -47,7 +47,7 @@ public class BukkitChestManager {
     if (someChestWorld != null)
       return someChestWorld.copy();
     else
-      return null;
+      return new ChestWorld(null);
   }
   
 }

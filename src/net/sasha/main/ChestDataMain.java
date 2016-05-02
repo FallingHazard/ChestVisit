@@ -22,8 +22,15 @@ public class ChestDataMain {
 
   public static List<ChestLocation> getChestLocs(String pathToWorldFolder) {  
     
-    File regionFolder = new File(pathToWorldFolder+File.separator+"region");
+    File regionFolder = new File(pathToWorldFolder + File.separator + "region");
     File[] regionFiles = regionFolder.listFiles();
+    
+    if (regionFiles == null) {
+      regionFolder = new File(pathToWorldFolder 
+                              + File.separator 
+                              + "DIM-1" + File.separator + "region");
+      regionFiles = regionFolder.listFiles();
+    }
     
     List<ChestLocation> chestLocations = new ArrayList<ChestLocation>();
     
@@ -82,7 +89,6 @@ public class ChestDataMain {
             }
           }
         }
-        
       } catch (IOException e) {
         e.printStackTrace();
       } finally {
@@ -95,7 +101,7 @@ public class ChestDataMain {
       
       counter ++;
       
-      if (counter % 25 == 0) {
+      if (counter % 10 == 0) {
         System.err.println(counter / (double) regionFiles.length * 100 + " %");
       }
     }

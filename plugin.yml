@@ -2,7 +2,9 @@ main: net.sasha.bukkit.ChestFinderPlugin
 name: ChestFinder
 version: 0.2
 author: Mike
+softdepend: [ChestTimer]
 commands:
   findchests:
   nextchest:
   previouschest:
+  addAll:
