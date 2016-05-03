@@ -1,36 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>BlitzCrankv2</groupId>
-  <artifactId>BlitzCrankv2</artifactId>
+  <groupId>ChestFinder</groupId>
+  <artifactId>ChestFinder</artifactId>
   <version>0.0.1-SNAPSHOT</version>
     <repositories>
       <repository>
           <id>spigot-repo</id>
           <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
       </repository>
-      <repository>
-          <id>protocol-lib</id>
-          <url>http://ci.dmulloy2.net/job/ProtocolLib/222/maven-repository/repository/</url>
-      </repository>
-      <repository>
-          <id>protocol-lib</id>
-          <url>http://maven.sk89q.com/artifactory/repo/</url>
-      </repository>
     </repositories>
     <dependencies>
       <!--Spigot API-->
-      <dependency>
-             <groupId>com.sk89q</groupId>
-             <artifactId>worldguard</artifactId>
-             <version>6.1</version>
-             <scope>provided</scope>
-      </dependency>
-      <dependency>
-             <groupId>com.sk89q.worldedit</groupId>
-             <artifactId>worldedit-bukkit</artifactId>
-             <version>6.1</version>
-             <scope>provided</scope>
-      </dependency>
       <dependency>
              <groupId>org.spigotmc</groupId>
              <artifactId>spigot-api</artifactId>
@@ -38,9 +18,9 @@
              <scope>provided</scope>
       </dependency>
       <dependency>
-             <groupId>com.comphenix.protocol</groupId>
-             <artifactId>ProtocolLib</artifactId>
-             <version>3.6.5</version>
+             <groupId>org.timer</groupId>
+             <artifactId>chesttimer</artifactId>
+             <version>1.0.0-SNAPSHOT</version>
              <scope>provided</scope>
       </dependency>
     </dependencies>
@@ -56,5 +36,13 @@
         </configuration>
       </plugin>
     </plugins>
+    <resources>
+      <resource>
+        <directory>res</directory>
+        <includes>
+          <include>plugin.yml</include>
+        </includes>
+      </resource>
+    </resources>
   </build>
 </project>
