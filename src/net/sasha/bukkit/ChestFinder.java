@@ -45,6 +45,7 @@ public class ChestFinder{
     getServer().getScheduler().scheduleSyncDelayedTask(plugin, toRun, delay);
   }
   
+  @SuppressWarnings("deprecation")
   public void scheduleAsyncDelayedJob(Runnable toRun, long delay) {
     getServer().getScheduler().scheduleAsyncDelayedTask(plugin, toRun, delay);
   }

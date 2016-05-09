@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.zip.InflaterInputStream;
 
 import javax.inject.Inject;
@@ -22,18 +21,13 @@ import org.jnbt.StringTag;
 import org.jnbt.Tag;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import net.sasha.bukkit.IChestManager;
 
 @Singleton
 public class ChestLocator implements IChestLocator{
 @Getter private boolean inUse = false;
-private IChestManager chestManager;
 
   @Inject
-  public ChestLocator(IChestManager chestManager) {
-    this.chestManager = chestManager;
-  }
+  public ChestLocator() {}
  
   @Override
   public List<ChestLocation> getChestLocs(String pathToWorldFolder) {  
@@ -59,7 +53,7 @@ private IChestManager chestManager;
         byte[] regionData = Files.readAllBytes(regionFile.toPath());
         
         byte[] locationData = Arrays.copyOfRange(regionData, 0, 4096);
-        AssocData assocLocationData = new AssocData(locationData);
+        AssocByteArray assocLocationData = new AssocByteArray(locationData);
         
         List<CompressedChunkData> chunksData = new ArrayList<CompressedChunkData>();
         while(assocLocationData.hasNext()) {

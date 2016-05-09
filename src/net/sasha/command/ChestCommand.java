@@ -16,9 +16,8 @@ import org.bukkit.entity.Player;
 import dagger.Lazy;
 import net.md_5.bungee.api.ChatColor;
 import net.sasha.bukkit.ChestFinder;
-import net.sasha.bukkit.IChestManager;
-import net.sasha.main.ChestLocator;
 import net.sasha.main.IChestLocator;
+import net.sasha.management.IChestManager;
 import net.sasha.main.ChestLocation;
 
 @Singleton
@@ -52,7 +51,6 @@ public class ChestCommand implements CommandExecutor {
     return false;
   }
   
-  @SuppressWarnings("deprecation")
   public void loadChestsFor(CommandSender sender, String target) {
     ChestFinder chestFinder = lazyChestFinder.get();
     World targetWorld = chestFinder.getServer().getWorld(target);

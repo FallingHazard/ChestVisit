@@ -1,4 +1,4 @@
-package net.sasha.bukkit;
+package net.sasha.management;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import net.sasha.bukkit.ChestWorld;
 
 @Singleton
 public class ChestSpectateManager implements IChestSpectateManager{

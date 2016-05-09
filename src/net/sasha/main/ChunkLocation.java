@@ -11,7 +11,7 @@ public class ChunkLocation {
     size = newSize;
   }
   
-  public ChunkLocation(AssocData assocLocationData) {
+  public ChunkLocation(AssocByteArray assocLocationData) {
     byte[] offsetArray = new byte[4];
     
     offsetArray[0] = 0;

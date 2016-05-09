@@ -1,8 +1,9 @@
-package net.sasha.bukkit;
+package net.sasha.management;
 
 import java.util.List;
 import java.util.UUID;
 
+import net.sasha.bukkit.ChestWorld;
 import net.sasha.main.ChestLocation;
 
 public interface IChestManager {

@@ -10,24 +10,18 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import dagger.Lazy;
 import net.md_5.bungee.api.ChatColor;
-import net.sasha.bukkit.ChestFinder;
 import net.sasha.bukkit.ChestWorld;
-import net.sasha.bukkit.IChestManager;
-import net.sasha.bukkit.IChestSpectateManager;
+import net.sasha.management.IChestManager;
+import net.sasha.management.IChestSpectateManager;
 
 @Singleton
 public class NextChestCommand implements CommandExecutor {
-  private final Lazy<ChestFinder> lazyChestFinder;
-  
   private final IChestSpectateManager spectateManager;
   private final IChestManager chestManager;
   
   @Inject
-  public NextChestCommand(Lazy<ChestFinder> chestFinder, 
-                          IChestSpectateManager manager, IChestManager cManager) {
-    lazyChestFinder = chestFinder;
+  public NextChestCommand(IChestSpectateManager manager, IChestManager cManager) {
     spectateManager = manager;
     chestManager = cManager;
   }

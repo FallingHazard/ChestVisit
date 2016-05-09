@@ -1,4 +1,4 @@
-package net.sasha.bukkit;
+package net.sasha.management;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,15 +15,17 @@ import org.bukkit.World;
 
 import dagger.Lazy;
 import net.md_5.bungee.api.ChatColor;
+import net.sasha.bukkit.ChestFinder;
+import net.sasha.bukkit.ChestWorld;
 import net.sasha.main.ChestLocation;
 
 @Singleton
-public class BukkitChestManager implements IChestManager{
+public class ChestManager implements IChestManager{
   private final Map<UUID, ChestWorld> chestWorlds;
   private final Lazy<ChestFinder> chestFinder;
   
   @Inject
-  public BukkitChestManager(Lazy<ChestFinder> chestFinder) {
+  public ChestManager(Lazy<ChestFinder> chestFinder) {
     this.chestWorlds = new HashMap<UUID, ChestWorld>();
     this.chestFinder = chestFinder;
   }

@@ -1,10 +1,10 @@
 package net.sasha.main;
 
-public class AssocData {
+public class AssocByteArray {
   private final byte[] internalArray;
   private int pointer;
   
-  public AssocData(byte[] newInternalArray) {
+  public AssocByteArray(byte[] newInternalArray) {
     internalArray = newInternalArray;
     pointer = 0;
   }
