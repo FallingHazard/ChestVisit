@@ -21,7 +21,7 @@ public class CompressedChunkData {
       lengthArray[2] = chunkArray[2];
       lengthArray[3] = chunkArray[3];
       
-      ChestDataMain.byteArrayToInt(lengthArray);
+      ChestLocator.byteArrayToInt(lengthArray);
       compressedData = Arrays.copyOfRange(chunkArray, 5, chunkArray.length);
     }
   }

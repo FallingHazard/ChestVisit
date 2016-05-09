@@ -9,8 +9,6 @@ import net.sasha.command.NextChestCommand;
 import net.sasha.command.PreviousChestCommand;
 
 public class ChestFinder{
-  @Getter private final BukkitChestManager chestManager;
-  @Getter private final IChestSpectateManager spectateManager;
   @Getter private final ChestFinderPlugin plugin;
   
   private final ChestCommand chestCommand;
@@ -18,9 +16,7 @@ public class ChestFinder{
   private final PreviousChestCommand prevChestCmd;
   
   @Inject
-  public ChestFinder(IChestSpectateManager spectateManager, 
-                     ChestFinderPlugin plugin, 
-                     BukkitChestManager chestManager,
+  public ChestFinder(ChestFinderPlugin plugin, 
                      ChestCommand chestCommand,
                      NextChestCommand nextChestCmd,
                      PreviousChestCommand prevChestCmd) {
@@ -28,10 +24,7 @@ public class ChestFinder{
     this.chestCommand = chestCommand;
     this.nextChestCmd = nextChestCmd;
     this.prevChestCmd = prevChestCmd;
-    this.chestManager = chestManager;
-    this.spectateManager = spectateManager;
     this.plugin = plugin;
-    
   }
   
   public void onEnable() {

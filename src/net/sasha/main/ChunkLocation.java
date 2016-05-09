@@ -21,7 +21,7 @@ public class ChunkLocation {
     
     byte sectorCount = assocLocationData.readValue();
     
-    start = ChestDataMain.byteArrayToInt(offsetArray) * 4096;
+    start = ChestLocator.byteArrayToInt(offsetArray) * 4096;
     size = sectorCount * 4096;
   }
   

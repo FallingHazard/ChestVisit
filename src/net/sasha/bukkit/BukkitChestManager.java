@@ -18,7 +18,7 @@ import net.md_5.bungee.api.ChatColor;
 import net.sasha.main.ChestLocation;
 
 @Singleton
-public class BukkitChestManager {
+public class BukkitChestManager implements IChestManager{
   private final Map<UUID, ChestWorld> chestWorlds;
   private final Lazy<ChestFinder> chestFinder;
   

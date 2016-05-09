@@ -8,7 +8,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.zip.InflaterInputStream;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.jnbt.CompoundTag;
 import org.jnbt.IntTag;
@@ -17,10 +21,23 @@ import org.jnbt.NBTInputStream;
 import org.jnbt.StringTag;
 import org.jnbt.Tag;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import net.sasha.bukkit.IChestManager;
 
-public class ChestDataMain {
+@Singleton
+public class ChestLocator implements IChestLocator{
+@Getter private boolean inUse = false;
+private IChestManager chestManager;
 
-  public static List<ChestLocation> getChestLocs(String pathToWorldFolder) {  
+  @Inject
+  public ChestLocator(IChestManager chestManager) {
+    this.chestManager = chestManager;
+  }
+ 
+  @Override
+  public List<ChestLocation> getChestLocs(String pathToWorldFolder) {  
+    inUse = true;
     
     File regionFolder = new File(pathToWorldFolder + File.separator + "region");
     File[] regionFiles = regionFolder.listFiles();
@@ -106,11 +123,12 @@ public class ChestDataMain {
       }
     }
     
+    inUse = false;
     return chestLocations;
   }
 
   public static int byteArrayToInt(byte[] someBytes) {
     return ByteBuffer.wrap(someBytes).getInt();
   }
-  
+
 }

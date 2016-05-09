@@ -12,21 +12,24 @@ import org.bukkit.entity.Player;
 
 import dagger.Lazy;
 import net.md_5.bungee.api.ChatColor;
-import net.sasha.bukkit.BukkitChestManager;
 import net.sasha.bukkit.ChestFinder;
 import net.sasha.bukkit.ChestWorld;
+import net.sasha.bukkit.IChestManager;
 import net.sasha.bukkit.IChestSpectateManager;
 
 @Singleton
 public class NextChestCommand implements CommandExecutor {
   private final Lazy<ChestFinder> lazyChestFinder;
-   
+  
   private final IChestSpectateManager spectateManager;
+  private final IChestManager chestManager;
   
   @Inject
-  public NextChestCommand(Lazy<ChestFinder> chestFinder, IChestSpectateManager manager) {
+  public NextChestCommand(Lazy<ChestFinder> chestFinder, 
+                          IChestSpectateManager manager, IChestManager cManager) {
     lazyChestFinder = chestFinder;
     spectateManager = manager;
+    chestManager = cManager;
   }
 
   @Override
@@ -42,7 +45,6 @@ public class NextChestCommand implements CommandExecutor {
       ChestWorld spectatingCWorld = spectateManager.getSpecificChestWorld(playerUID, 
                                                                           worldUID);
       if (spectatingCWorld == null || !spectatingCWorld.isLoaded()) {
-        BukkitChestManager chestManager = lazyChestFinder.get().getChestManager();
         spectatingCWorld = chestManager.getChestWorld(worldUID);
         
         spectateManager.setSpectating(playerUID, spectatingCWorld, worldUID);

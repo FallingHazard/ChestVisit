@@ -16,17 +16,22 @@ import org.bukkit.entity.Player;
 import dagger.Lazy;
 import net.md_5.bungee.api.ChatColor;
 import net.sasha.bukkit.ChestFinder;
-import net.sasha.main.ChestDataMain;
+import net.sasha.bukkit.IChestManager;
+import net.sasha.main.ChestLocator;
+import net.sasha.main.IChestLocator;
 import net.sasha.main.ChestLocation;
 
 @Singleton
 public class ChestCommand implements CommandExecutor {
   private final Lazy<ChestFinder> lazyChestFinder;
-  private boolean commandInProgess = false;
+  private final IChestLocator chestLocator;
+  private final IChestManager chestManager;
 
   @Inject
-  public ChestCommand(Lazy<ChestFinder> chestFinder) {
+  public ChestCommand(Lazy<ChestFinder> chestFinder, IChestLocator locator, IChestManager manager) {
     lazyChestFinder = chestFinder;
+    chestLocator = locator;
+    chestManager = manager;
   }
 
   @Override
@@ -71,10 +76,8 @@ public class ChestCommand implements CommandExecutor {
         index ++;
       }
       
-      if (!commandInProgess) {
+      if (!chestLocator.isInUse()) {
         if (found) {
-          commandInProgess = true;
-          
           sender.sendMessage(ChatColor.RED + "Seaching for Chests in " + target + "...");
           String targetPath = targetFolder.getAbsolutePath();
           System.err.println(targetPath);
@@ -86,15 +89,14 @@ public class ChestCommand implements CommandExecutor {
             @Override
             public void run() {
               List<ChestLocation> chestLocations 
-               = ChestDataMain.getChestLocs(targetPath);
+               = chestLocator.getChestLocs(targetPath);
               
               chestFinder.scheduleSyncDelayedJob(new Runnable() {
                 
                 @Override
                 public void run() {
-                  chestFinder.getChestManager().loadChestsInWorld(chestLocations, 
-                                                             targetUID);
-                  commandInProgess = false;
+                  chestManager.loadChestsInWorld(chestLocations, 
+                                                                  targetUID);
                 }
               }, 0L);
             }
