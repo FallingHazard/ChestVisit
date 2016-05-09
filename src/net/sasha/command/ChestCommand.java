@@ -75,6 +75,7 @@ public class ChestCommand implements CommandExecutor {
       }
       
       if (!chestLocator.isInUse()) {
+        chestLocator.setInUse(true);
         if (found) {
           sender.sendMessage(ChatColor.RED + "Seaching for Chests in " + target + "...");
           String targetPath = targetFolder.getAbsolutePath();
@@ -95,6 +96,7 @@ public class ChestCommand implements CommandExecutor {
                 public void run() {
                   chestManager.loadChestsInWorld(chestLocations, 
                                                                   targetUID);
+                  chestLocator.setInUse(false);
                 }
               }, 0L);
             }

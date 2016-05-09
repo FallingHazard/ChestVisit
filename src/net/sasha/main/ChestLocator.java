@@ -21,18 +21,18 @@ import org.jnbt.StringTag;
 import org.jnbt.Tag;
 
 import lombok.Getter;
+import lombok.Setter;
+import lombok.Synchronized;
 
 @Singleton
 public class ChestLocator implements IChestLocator{
-@Getter private boolean inUse = false;
+  @Getter @Setter private boolean inUse = false;
 
   @Inject
   public ChestLocator() {}
  
   @Override
   public List<ChestLocation> getChestLocs(String pathToWorldFolder) {  
-    inUse = true;
-    
     File regionFolder = new File(pathToWorldFolder + File.separator + "region");
     File[] regionFiles = regionFolder.listFiles();
     
@@ -116,8 +116,7 @@ public class ChestLocator implements IChestLocator{
         System.err.println(counter / (double) regionFiles.length * 100 + " %");
       }
     }
-    
-    inUse = false;
+  
     return chestLocations;
   }
 
