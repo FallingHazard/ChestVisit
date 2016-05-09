@@ -2,6 +2,8 @@ package net.sasha.module;
 
 import javax.inject.Singleton;
 
+import org.bukkit.Server;
+
 import dagger.Module;
 import dagger.Provides;
 import net.sasha.bukkit.ChestFinder;
@@ -25,7 +27,8 @@ public class ChestFinderModule {
     return plugin;
   }
   
-  @Provides @Singleton public IChestSpectateManager 
+  @Provides @Singleton 
+  public IChestSpectateManager 
     providesChestSpectateManager(ChestSpectateManager spectateManager) {
     return spectateManager;
   }
@@ -38,6 +41,10 @@ public class ChestFinderModule {
   @Provides @Singleton
   public IChestLocator providesChestLocator(ChestLocator chestLocator) {
     return chestLocator;
+  }
+  
+  @Provides @Singleton public Server providesServer() {
+    return plugin.getServer();
   }
 
 }

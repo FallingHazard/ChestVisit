@@ -14,21 +14,19 @@ import org.bukkit.Server;
 import org.bukkit.World;
 
 import dagger.Lazy;
+import lombok.RequiredArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import net.sasha.bukkit.ChestFinder;
 import net.sasha.bukkit.ChestWorld;
 import net.sasha.main.ChestLocation;
+import net.sasha.main.IChestLocator;
 
-@Singleton
+@Singleton @RequiredArgsConstructor(onConstructor=@__({@Inject}))
 public class ChestManager implements IChestManager{
-  private final Map<UUID, ChestWorld> chestWorlds;
-  private final Lazy<ChestFinder> chestFinder;
+  private final Map<UUID, ChestWorld> chestWorlds 
+   = new HashMap<UUID, ChestWorld>();
   
-  @Inject
-  public ChestManager(Lazy<ChestFinder> chestFinder) {
-    this.chestWorlds = new HashMap<UUID, ChestWorld>();
-    this.chestFinder = chestFinder;
-  }
+  private final Lazy<ChestFinder> chestFinder;
   
   /* Will overrite any previous chests loaded to that world */
   public void loadChestsInWorld(List<ChestLocation> chestLocs, UUID worldUID) {

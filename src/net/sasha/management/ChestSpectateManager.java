@@ -7,16 +7,16 @@ import java.util.UUID;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import dagger.Lazy;
+import lombok.RequiredArgsConstructor;
+import net.sasha.bukkit.ChestFinder;
 import net.sasha.bukkit.ChestWorld;
+import net.sasha.main.IChestLocator;
 
-@Singleton
+@Singleton @RequiredArgsConstructor(onConstructor=@__(@Inject))
 public class ChestSpectateManager implements IChestSpectateManager{
-  private final Map<UUID, Map<UUID, ChestWorld>> playerChestWorldMap;
-  
-  @Inject
-  public ChestSpectateManager() {
-    playerChestWorldMap = new HashMap<UUID, Map<UUID, ChestWorld>>();
-  }
+  private final Map<UUID, Map<UUID, ChestWorld>> playerChestWorldMap 
+    = new HashMap<UUID, Map<UUID, ChestWorld>>();
   
   @Override
   public Map<UUID, ChestWorld> getSpectatedChestWorlds(UUID uniqueId) {

@@ -14,24 +14,19 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import dagger.Lazy;
+import lombok.RequiredArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import net.sasha.bukkit.ChestFinder;
+import net.sasha.bukkit.ChestFinderPlugin;
 import net.sasha.main.IChestLocator;
 import net.sasha.management.IChestManager;
 import net.sasha.main.ChestLocation;
 
-@Singleton
-public class ChestCommand implements CommandExecutor {
+@Singleton  @RequiredArgsConstructor(onConstructor=@__(@Inject))
+public class FindChestsCommand implements CommandExecutor {
   private final Lazy<ChestFinder> lazyChestFinder;
   private final IChestLocator chestLocator;
   private final IChestManager chestManager;
-
-  @Inject
-  public ChestCommand(Lazy<ChestFinder> chestFinder, IChestLocator locator, IChestManager manager) {
-    lazyChestFinder = chestFinder;
-    chestLocator = locator;
-    chestManager = manager;
-  }
 
   @Override
   public boolean onCommand(CommandSender sender, 
