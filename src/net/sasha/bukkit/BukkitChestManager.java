@@ -6,24 +6,31 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
+
+import dagger.Lazy;
 import net.md_5.bungee.api.ChatColor;
 import net.sasha.main.ChestLocation;
 
+@Singleton
 public class BukkitChestManager {
   private final Map<UUID, ChestWorld> chestWorlds;
-  private final ChestFinderPlugin plugin;
+  private final Lazy<ChestFinder> chestFinder;
   
-  public BukkitChestManager(ChestFinderPlugin chestFinderPlugin) {
-    chestWorlds = new HashMap<UUID, ChestWorld>();
-    plugin = chestFinderPlugin;
+  @Inject
+  public BukkitChestManager(Lazy<ChestFinder> chestFinder) {
+    this.chestWorlds = new HashMap<UUID, ChestWorld>();
+    this.chestFinder = chestFinder;
   }
   
   /* Will overrite any previous chests loaded to that world */
   public void loadChestsInWorld(List<ChestLocation> chestLocs, UUID worldUID) {
-    Server server = plugin.getServer();
+    Server server = chestFinder.get().getServer();
     server.broadcastMessage(ChatColor.RED + "Loading chests...");
     
     World targetWorld = server.getWorld(worldUID);

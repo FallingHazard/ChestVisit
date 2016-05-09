@@ -1,8 +1,10 @@
 package net.sasha.main;
 
+import lombok.Getter;
+
 public class ChunkLocation {
-  private final int start;
-  private final int size;
+  @Getter private final int start;
+  @Getter private final int size;
   
   public ChunkLocation(int newLocation, int newSize) {
     start = newLocation;
@@ -21,14 +23,6 @@ public class ChunkLocation {
     
     start = ChestDataMain.byteArrayToInt(offsetArray) * 4096;
     size = sectorCount * 4096;
-  }
-  
-  public int getStart() {
-    return start;
-  }
-  
-  public int getSize() {
-    return size;
   }
   
 }

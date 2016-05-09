@@ -1,38 +1,59 @@
 package net.sasha.bukkit;
 
-import org.bukkit.plugin.java.JavaPlugin;
+import javax.inject.Inject;
 
+import org.bukkit.Server;
+import lombok.Getter;
 import net.sasha.command.ChestCommand;
 import net.sasha.command.NextChestCommand;
 import net.sasha.command.PreviousChestCommand;
 
-public class ChestFinderPlugin extends JavaPlugin{
-  private BukkitChestManager chestManager;
-  private ChestSpectateManager spectateManager;
-
-  @Override
-  public void onDisable() {
-    super.onDisable();
+public class ChestFinder{
+  @Getter private final BukkitChestManager chestManager;
+  @Getter private final IChestSpectateManager spectateManager;
+  @Getter private final ChestFinderPlugin plugin;
+  
+  private final ChestCommand chestCommand;
+  private final NextChestCommand nextChestCmd;
+  private final PreviousChestCommand prevChestCmd;
+  
+  @Inject
+  public ChestFinder(IChestSpectateManager spectateManager, 
+                     ChestFinderPlugin plugin, 
+                     BukkitChestManager chestManager,
+                     ChestCommand chestCommand,
+                     NextChestCommand nextChestCmd,
+                     PreviousChestCommand prevChestCmd) {
+    
+    this.chestCommand = chestCommand;
+    this.nextChestCmd = nextChestCmd;
+    this.prevChestCmd = prevChestCmd;
+    this.chestManager = chestManager;
+    this.spectateManager = spectateManager;
+    this.plugin = plugin;
+    
   }
-
-  @Override
+  
   public void onEnable() {
-    spectateManager = new ChestSpectateManager();
+    plugin.getCommand("findchests").setExecutor(chestCommand);
     
-    getCommand("findchests").setExecutor(new ChestCommand(this));
+    plugin.getCommand("nextchest")
+     .setExecutor(nextChestCmd);
     
-    getCommand("nextchest")
-     .setExecutor(new NextChestCommand(this,spectateManager));
-    
-    getCommand("previouschest")
-     .setExecutor(new PreviousChestCommand(this, spectateManager));
-    
-    chestManager = new BukkitChestManager(this);
-    super.onEnable();
+    plugin.getCommand("previouschest")
+     .setExecutor(prevChestCmd);
+  }
+
+  public Server getServer() {
+    return plugin.getServer();
   }
   
-  public BukkitChestManager getChestManager() {
-    return chestManager;
+  public void scheduleSyncDelayedJob(Runnable toRun, long delay) {
+    getServer().getScheduler().scheduleSyncDelayedTask(plugin, toRun, delay);
   }
   
+  public void scheduleAsyncDelayedJob(Runnable toRun, long delay) {
+    getServer().getScheduler().scheduleAsyncDelayedTask(plugin, toRun, delay);
+  }
+    
 }

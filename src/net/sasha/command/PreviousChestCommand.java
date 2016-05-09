@@ -2,23 +2,29 @@ package net.sasha.command;
 
 import java.util.UUID;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import dagger.Lazy;
 import net.md_5.bungee.api.ChatColor;
 import net.sasha.bukkit.BukkitChestManager;
-import net.sasha.bukkit.ChestFinderPlugin;
-import net.sasha.bukkit.ChestSpectateManager;
+import net.sasha.bukkit.ChestFinder;
 import net.sasha.bukkit.ChestWorld;
+import net.sasha.bukkit.IChestSpectateManager;
 
+@Singleton
 public class PreviousChestCommand implements CommandExecutor {
-  private final ChestFinderPlugin plugin;
-  private final ChestSpectateManager spectateManager;
-
-  public PreviousChestCommand(ChestFinderPlugin chestFinderPlugin, ChestSpectateManager manager) {
-    plugin = chestFinderPlugin;
+  private final Lazy<ChestFinder> lazyChestFinder;
+  private final IChestSpectateManager spectateManager;
+  
+  @Inject
+  public PreviousChestCommand(Lazy<ChestFinder> chestFinderPlugin, IChestSpectateManager manager) {
+    lazyChestFinder = chestFinderPlugin;
     spectateManager = manager;
   }
 
@@ -35,7 +41,7 @@ public class PreviousChestCommand implements CommandExecutor {
       ChestWorld spectatingCWorld = spectateManager.getSpecificChestWorld(playerUID, 
                                                                           worldUID);
       if (spectatingCWorld == null || !spectatingCWorld.isLoaded()) {
-        BukkitChestManager chestManager = plugin.getChestManager();
+        BukkitChestManager chestManager = lazyChestFinder.get().getChestManager();
         spectatingCWorld = chestManager.getChestWorld(worldUID);
         
         spectateManager.setSpectating(playerUID, spectatingCWorld, worldUID);

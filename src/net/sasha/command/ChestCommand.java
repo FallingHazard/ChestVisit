@@ -4,23 +4,29 @@ import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import dagger.Lazy;
 import net.md_5.bungee.api.ChatColor;
-import net.sasha.bukkit.ChestFinderPlugin;
+import net.sasha.bukkit.ChestFinder;
 import net.sasha.main.ChestDataMain;
 import net.sasha.main.ChestLocation;
 
+@Singleton
 public class ChestCommand implements CommandExecutor {
-  private final ChestFinderPlugin plugin;
+  private final Lazy<ChestFinder> lazyChestFinder;
   private boolean commandInProgess = false;
 
-  public ChestCommand(ChestFinderPlugin chestFinderPlugin) {
-    plugin = chestFinderPlugin;
+  @Inject
+  public ChestCommand(Lazy<ChestFinder> chestFinder) {
+    lazyChestFinder = chestFinder;
   }
 
   @Override
@@ -43,12 +49,13 @@ public class ChestCommand implements CommandExecutor {
   
   @SuppressWarnings("deprecation")
   public void loadChestsFor(CommandSender sender, String target) {
-    World targetWorld = plugin.getServer().getWorld(target);
+    ChestFinder chestFinder = lazyChestFinder.get();
+    World targetWorld = chestFinder.getServer().getWorld(target);
     
     if (targetWorld != null) {     
       UUID targetUID = targetWorld.getUID();
       
-      File[] serverFiles = plugin.getServer().getWorldContainer().listFiles();
+      File[] serverFiles = chestFinder.getServer().getWorldContainer().listFiles();
     
       File targetFolder = null;
       int index = 0;
@@ -74,20 +81,18 @@ public class ChestCommand implements CommandExecutor {
           
           targetWorld.save();
           
-          plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, 
-                                                                     new Runnable() {
+          chestFinder.scheduleAsyncDelayedJob(new Runnable() {
             
             @Override
             public void run() {
               List<ChestLocation> chestLocations 
                = ChestDataMain.getChestLocs(targetPath);
               
-              plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, 
-                                                                        new Runnable() {
+              chestFinder.scheduleSyncDelayedJob(new Runnable() {
                 
                 @Override
                 public void run() {
-                  plugin.getChestManager().loadChestsInWorld(chestLocations, 
+                  chestFinder.getChestManager().loadChestsInWorld(chestLocations, 
                                                              targetUID);
                   commandInProgess = false;
                 }

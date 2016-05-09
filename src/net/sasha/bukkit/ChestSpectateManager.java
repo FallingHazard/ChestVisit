@@ -4,17 +4,24 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class ChestSpectateManager {
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
+public class ChestSpectateManager implements IChestSpectateManager{
   private final Map<UUID, Map<UUID, ChestWorld>> playerChestWorldMap;
   
+  @Inject
   public ChestSpectateManager() {
     playerChestWorldMap = new HashMap<UUID, Map<UUID, ChestWorld>>();
   }
-
+  
+  @Override
   public Map<UUID, ChestWorld> getSpectatedChestWorlds(UUID uniqueId) {
     return playerChestWorldMap.get(uniqueId);
   }
 
+  @Override
   public void setSpectating(UUID spectatorId, ChestWorld toSpectate, UUID worldUID) {
     Map<UUID, ChestWorld> spectatedChestWorlds = getSpectatedChestWorlds(spectatorId);
     
@@ -26,6 +33,7 @@ public class ChestSpectateManager {
     spectatedChestWorlds.put(worldUID, toSpectate);
   }
   
+  @Override
   public ChestWorld getSpecificChestWorld(UUID spectatorId, UUID worldId) {
     Map<UUID, ChestWorld> spectatedChestWorlds = getSpectatedChestWorlds(spectatorId);
     
