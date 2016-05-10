@@ -8,6 +8,10 @@
           <id>spigot-repo</id>
           <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
       </repository>
+      <repository>
+          <id>repo.originalgamers</id>
+          <url>s3://repo.originalgamers/release</url>
+      </repository>
     </repositories>
     <dependencies>
       <!--Spigot API-->
@@ -36,9 +40,9 @@
 		    <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>org.marlock</groupId>
+        <groupId>JNBT</groupId>
         <artifactId>JNBT</artifactId>
-        <version>1.4</version>
+        <version>0.0.1-SNAPSHOT</version>
       </dependency>
     </dependencies>
   <build>
@@ -70,6 +74,13 @@
         </executions>
       </plugin>
     </plugins>
+    <extensions>
+      <extension>
+        <groupId>org.kuali.maven.wagons</groupId>
+        <artifactId>maven-s3-wagon</artifactId>
+        <version>1.2.1</version>
+      </extension>
+    </extensions>
     <resources>
       <resource>
         <directory>res</directory>
