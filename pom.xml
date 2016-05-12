@@ -3,6 +3,13 @@
   <groupId>ChestFinder</groupId>
   <artifactId>ChestFinder</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <distributionManagement>
+    <repository>
+      <id>repo.originalgamers</id>
+      <url>s3://repo.original-gamers.net/release</url>
+    </repository>
+  </distributionManagement>
     <repositories>
       <repository>
           <id>spigot-repo</id>
@@ -10,7 +17,7 @@
       </repository>
       <repository>
           <id>repo.originalgamers</id>
-          <url>s3://repo.originalgamers/release</url>
+          <url>http://repo.original-gamers.net/release/</url>
       </repository>
     </repositories>
     <dependencies>
@@ -25,13 +32,14 @@
 		    <groupId>com.squareup.dagger</groupId>
 		    <artifactId>dagger</artifactId>
 		    <version>1.2.4</version>
-		    <scope>provided</scope>
+		    <scope>compile</scope>
 		  </dependency>
 		  <dependency>
 		    <groupId>com.squareup.dagger</groupId>
 		    <artifactId>dagger-compiler</artifactId>
 		    <version>1.2.4</version>
 		    <optional>true</optional>
+		    <scope>provided</scope>
       </dependency>
       <dependency>
 		    <groupId>org.projectlombok</groupId>
