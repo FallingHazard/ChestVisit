@@ -2,7 +2,9 @@ package net.sasha.bukkit;
 
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.block.Chest;
 
 public class ChestWorld {
   private final List<Location> chestLocations;
@@ -43,6 +45,13 @@ public class ChestWorld {
 
   public ChestWorld copy() {
     return new ChestWorld(chestLocations);
+  }
+
+  public void emptyChests() {
+    for (Location chestLoc : chestLocations) {
+      Chest chest = (Chest) chestLoc.getBlock().getState();
+      chest.getBlockInventory().clear();
+    }
   }
 
 }

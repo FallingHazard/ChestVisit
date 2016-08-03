@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.bukkit.Server;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.sasha.command.ClearChestsCommand;
 import net.sasha.command.FindChestsCommand;
 import net.sasha.command.NextChestCommand;
 import net.sasha.command.PreviousChestCommand;
@@ -16,17 +17,18 @@ public class ChestFinder{
   private final FindChestsCommand chestCommand;
   private final NextChestCommand nextChestCmd;
   private final PreviousChestCommand prevChestCmd;
+  private final ClearChestsCommand clearChestCmd;
   
   @Getter private final Server server;
     
   public void onEnable() {
     plugin.getCommand("findchests").setExecutor(chestCommand);
     
-    plugin.getCommand("nextchest")
-     .setExecutor(nextChestCmd);
+    plugin.getCommand("nextchest").setExecutor(nextChestCmd);
     
-    plugin.getCommand("previouschest")
-     .setExecutor(prevChestCmd);
+    plugin.getCommand("previouschest").setExecutor(prevChestCmd);
+    
+    plugin.getCommand("clearallchests").setExecutor(clearChestCmd);
   }
 
   public void scheduleSyncDelayedJob(Runnable toRun, long delay) {
