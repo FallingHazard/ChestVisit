@@ -1,5 +1,6 @@
 package net.sasha.main;
 
+/* Used for reading a list of bytes one at a time */
 public class AssocByteArray {
   private final byte[] internalArray;
   private int pointer;
@@ -24,4 +25,5 @@ public class AssocByteArray {
   public boolean hasNext() {
     return pointer < internalArray.length;
   }
+  
 }

@@ -22,17 +22,16 @@ import org.jnbt.Tag;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.Synchronized;
 
+/* Tool for finding a List of Bukkit Locations of all chests in a world */
 @Singleton
-public class ChestLocator implements IChestLocator{
+public class ChestLocator {
   @Getter @Setter private boolean inUse = false;
 
   @Inject
   public ChestLocator() {}
  
-  @Override
-  public List<ChestLocation> getChestLocs(String pathToWorldFolder) {  
+  public static List<ChestLocation> getChestLocs(String pathToWorldFolder) {  
     File regionFolder = new File(pathToWorldFolder + File.separator + "region");
     File[] regionFiles = regionFolder.listFiles();
     

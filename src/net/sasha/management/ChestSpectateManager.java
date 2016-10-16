@@ -7,23 +7,19 @@ import java.util.UUID;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import dagger.Lazy;
 import lombok.RequiredArgsConstructor;
-import net.sasha.bukkit.ChestFinder;
 import net.sasha.bukkit.ChestWorld;
-import net.sasha.main.IChestLocator;
 
+/* Keeps track of the world and chest a  user is spectating */
 @Singleton @RequiredArgsConstructor(onConstructor=@__(@Inject))
-public class ChestSpectateManager implements IChestSpectateManager{
+public class ChestSpectateManager {
   private final Map<UUID, Map<UUID, ChestWorld>> playerChestWorldMap 
     = new HashMap<UUID, Map<UUID, ChestWorld>>();
   
-  @Override
   public Map<UUID, ChestWorld> getSpectatedChestWorlds(UUID uniqueId) {
     return playerChestWorldMap.get(uniqueId);
   }
 
-  @Override
   public void setSpectating(UUID spectatorId, ChestWorld toSpectate, UUID worldUID) {
     Map<UUID, ChestWorld> spectatedChestWorlds = getSpectatedChestWorlds(spectatorId);
     
@@ -35,7 +31,6 @@ public class ChestSpectateManager implements IChestSpectateManager{
     spectatedChestWorlds.put(worldUID, toSpectate);
   }
   
-  @Override
   public ChestWorld getSpecificChestWorld(UUID spectatorId, UUID worldId) {
     Map<UUID, ChestWorld> spectatedChestWorlds = getSpectatedChestWorlds(spectatorId);
     

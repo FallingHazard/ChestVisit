@@ -19,10 +19,10 @@ import net.md_5.bungee.api.ChatColor;
 import net.sasha.bukkit.ChestFinder;
 import net.sasha.bukkit.ChestWorld;
 import net.sasha.main.ChestLocation;
-import net.sasha.main.IChestLocator;
 
+/* Manages the loading and storage of chests */
 @Singleton @RequiredArgsConstructor(onConstructor=@__({@Inject}))
-public class ChestManager implements IChestManager{
+public class ChestManager {
   private final Map<UUID, ChestWorld> chestWorlds 
    = new HashMap<UUID, ChestWorld>();
   

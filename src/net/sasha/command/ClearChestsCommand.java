@@ -10,17 +10,13 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import dagger.Lazy;
 import lombok.RequiredArgsConstructor;
-import net.sasha.bukkit.ChestFinder;
 import net.sasha.bukkit.ChestWorld;
-import net.sasha.main.IChestLocator;
-import net.sasha.management.IChestManager;
+import net.sasha.management.ChestManager;
 
 @Singleton  @RequiredArgsConstructor(onConstructor=@__(@Inject))
 public class ClearChestsCommand implements CommandExecutor {
-  private final Lazy<ChestFinder> lazyChestFinder;
-  private final IChestManager chestManager;
+  private final ChestManager chestManager;
 
   @Override
   public boolean onCommand(CommandSender sender, Command arg1, String arg2,

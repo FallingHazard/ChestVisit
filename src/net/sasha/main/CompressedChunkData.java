@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
 
+/* Uses a chunk location to extract chunk data from region data and form
+ * an instance.
+ */
 public class CompressedChunkData {
   private byte[] compressedData;
   
@@ -13,16 +16,10 @@ public class CompressedChunkData {
     int chunkEnd = chunkStart + chunkLoc.getSize();
     
     if (chunkStart != chunkEnd) {
-      byte[] chunkArray = Arrays.copyOfRange(regionData, chunkStart, chunkEnd + 1);
+      //byte[] chunkArray = Arrays.copyOfRange(regionData, chunkStart, chunkEnd + 1);
       
-      byte[] lengthArray = new byte[4];
-      lengthArray[0] = chunkArray[0];
-      lengthArray[1] = chunkArray[1];
-      lengthArray[2] = chunkArray[2];
-      lengthArray[3] = chunkArray[3];
-      
-      ChestLocator.byteArrayToInt(lengthArray);
-      compressedData = Arrays.copyOfRange(chunkArray, 5, chunkArray.length);
+      /* Strips the first 5 bytes off ( the header) */
+      compressedData = Arrays.copyOfRange(regionData, chunkStart  + 5, chunkEnd + 1);
     }
   }
   

@@ -1,6 +1,7 @@
 package net.sasha.bukkit;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.bukkit.Server;
 import lombok.Getter;
@@ -10,6 +11,8 @@ import net.sasha.command.FindChestsCommand;
 import net.sasha.command.NextChestCommand;
 import net.sasha.command.PreviousChestCommand;
 
+/* Represents an instance of the Chest Finder tool */
+@Singleton
 @RequiredArgsConstructor(onConstructor=@__(@Inject))
 public class ChestFinder{
   private final ChestFinderPlugin plugin;

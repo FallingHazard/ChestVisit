@@ -2,6 +2,7 @@ package net.sasha.main;
 
 import lombok.Getter;
 
+/* An immutable 3D location */
 public class ChestLocation {
   @Getter private final int x;
   @Getter private final int y;

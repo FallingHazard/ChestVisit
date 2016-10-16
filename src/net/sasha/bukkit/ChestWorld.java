@@ -2,10 +2,10 @@ package net.sasha.bukkit;
 
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Chest;
 
+/* A ChestWorld is an associative data structure of Chest locations */
 public class ChestWorld {
   private final List<Location> chestLocations;
   private int pointer = 0;

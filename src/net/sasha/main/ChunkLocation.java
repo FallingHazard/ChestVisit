@@ -2,6 +2,7 @@ package net.sasha.main;
 
 import lombok.Getter;
 
+/* Represents the location of a chunk in a region file */
 public class ChunkLocation {
   @Getter private final int start;
   @Getter private final int size;
@@ -11,6 +12,11 @@ public class ChunkLocation {
     size = newSize;
   }
   
+  /* The first next 4 bytes represent the value of offset in
+   * multiples of 4 kilobytes.
+   * The fifth byte is the size of the chunk data also in multiples 
+   * of 4 kilobytes.
+   */
   public ChunkLocation(AssocByteArray assocLocationData) {
     byte[] offsetArray = new byte[4];
     

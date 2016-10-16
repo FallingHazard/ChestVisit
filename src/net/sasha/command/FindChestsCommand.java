@@ -17,16 +17,15 @@ import dagger.Lazy;
 import lombok.RequiredArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import net.sasha.bukkit.ChestFinder;
-import net.sasha.bukkit.ChestFinderPlugin;
-import net.sasha.main.IChestLocator;
-import net.sasha.management.IChestManager;
+import net.sasha.management.ChestManager;
 import net.sasha.main.ChestLocation;
+import net.sasha.main.ChestLocator;
 
 @Singleton  @RequiredArgsConstructor(onConstructor=@__(@Inject))
 public class FindChestsCommand implements CommandExecutor {
   private final Lazy<ChestFinder> lazyChestFinder;
-  private final IChestLocator chestLocator;
-  private final IChestManager chestManager;
+  private final ChestLocator chestLocator;
+  private final ChestManager chestManager;
 
   @Override
   public boolean onCommand(CommandSender sender, 
